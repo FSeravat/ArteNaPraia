@@ -21,6 +21,7 @@
                 <label asp-for="ChavePix" class="control-label"></label>
                 <input asp-for="ChavePix" class="form-control" />
                 <span asp-validation-for="ChavePix" class="text-danger"></span>
+                <span class="text-danger">@ViewBag.ErroChavePix</span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

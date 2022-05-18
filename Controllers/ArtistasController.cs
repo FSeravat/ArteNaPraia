@@ -45,6 +45,7 @@ namespace ArteNaPraia.Controllers
         // GET: Artistas/Create
         public IActionResult Create()
         {
+            ViewBag.ErroChavePix = "";
             return View();
         }
 
@@ -55,11 +56,18 @@ namespace ArteNaPraia.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdArtista,Nome,ChavePix")] Artista artista)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(artista);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+            ViewBag.ErroChavePix = "";
+            var chavePix=_context.Artista.FirstOrDefault(a => a.ChavePix == artista.ChavePix);
+            var chavePix2=_context.Artista.Find(artista.ChavePix);
+            if(chavePix==null){
+                if (ModelState.IsValid)
+                {
+                    _context.Add(artista);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+            }else{
+                ViewBag.ErroChavePix = "A chave pix já existe, cadastre outra.";
             }
             return View(artista);
         }

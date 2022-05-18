@@ -65,7 +65,6 @@ namespace ArteNaPraia.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["IdArtista"] = new SelectList(_context.Set<Artista>(), "IdArtista", "IdArtista", arte.IdArtista);
-            arte.Preco = 0;
             return View(arte);
         }
 
